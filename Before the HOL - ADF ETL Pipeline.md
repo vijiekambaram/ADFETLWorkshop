@@ -17,7 +17,7 @@ April 2020
 
 <!-- TOC -->
 
-- [Big data and visualization before the hands-on lab setup guide](#big-data-and-visualization-before-the-hands-on-lab-setup-guide)
+- [Big data ETL Pipeline before the hands-on lab setup guide](#big-data-and-visualization-before-the-hands-on-lab-setup-guide)
   - [Requirements](#requirements)
   - [Before the hands-on lab](#before-the-hands-on-lab)
     - [Task 1: Provision Azure Data Factory](#task-1-provision-azure-datafactory)
