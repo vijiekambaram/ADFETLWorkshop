@@ -46,10 +46,15 @@ Resource Groups is logical grouping that holds related resources for an Azure so
 
 1.	Login to Azure Portal https://portal.azure.com.
 2.	Type Resource Group in the Search bar at the top and Click on it.
-    ![Select create a resource group](media/create-azure-resource-group.png)
+
+    ![Select create a resource group](media/create-azure-resource-group.png)   
+    
 3.	Click on +Add.
+
     ![Select add a resource group](media/add-azure-resource-group.png)
+    
 4.	Enter the Resource Group name as adfetlworkshop (should be Globally unique) and Region as Southeast Asia. Click on Review+Create.
+    
     ![Select fill in details resource group](media/filldetails-azure-resource-group.png)
 
 
