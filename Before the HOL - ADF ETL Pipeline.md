@@ -111,8 +111,8 @@ Create a new Azure Storage account that will be used to archive the data.
 
    - **Storage account name**: Enter a unique name as indicated by a green checkmark.
 
-   - **Location**: Select the same region you used for Azure Databricks.
-
+   - **Location**: Select the same region you created at the beginning of this lab.
+.
    - **Performance**: Standard
 
    - **Account kind**: StorageV2(general purpose v2)
