@@ -20,11 +20,13 @@ April 2020
 - [Big data ETL Pipeline before the hands-on lab setup guide](#big-data-and-visualization-before-the-hands-on-lab-setup-guide)
   - [Requirements](#requirements)
   - [Before the hands-on lab](#before-the-hands-on-lab)
-    - [Task 1: Provision Azure Data Factory](#task-1-provision-azure-datafactory)
-    - [Task 2: Create Azure Storage account](#task-2-create-azure-storage-account)
-    - [Task 3: Create storage container](#task-3-create-storage-container)
-    - [Task 4: Provision SqlServer - Optional](#task-4-provision-azure-sql-db)
-    - [Task 5: Download Azure Storage Explorer - Optional](#task-5-download-and-install-azure-storage-explorer)
+    - [Task 1: Provision Azure Data Factory](#task-1-create-resource-group)
+    - [Task 2: Provision Azure Data Factory](#task-2-provision-azure-datafactory)
+    - [Task 3: Create Azure Storage account](#task-3-create-azure-storage-account)
+    - [Task 4: Create storage container](#task-4-create-storage-container)
+    - [Task 5: Create Logic Apps](#task-5-create-logic-apps)
+    - [Task 6: Provision SqlServer - Optional](#task-6-provision-azure-sql-db)
+    - [Task 7: Download Azure Storage Explorer - Optional](#task-7-download-and-install-azure-storage-explorer)
 
 <!-- /TOC -->
 
@@ -146,11 +148,40 @@ In this task, you will create a storage container in which you will store your M
    ![Screenshot showing the steps to create a new storage container](media/azure-storage-create-container.png)
    
 
-### Task 5: Provision Sql Server - Optional
+### Task 5: Create Logic Apps
+
+Azure Logic Apps is a cloud service that helps you schedule, automate, and orchestrate tasks, business processes, and workflows when you need to integrate apps, data, systems, and services across enterprises or organizations. In this ETL Pipeline we will use Logic Apps for email notification.
+
+1. From Azure portal, type Logic Apps in the Search bar at the top and select.
+
+![Select create Logic Apps, type in storage, then select Storage account... from the results list](media/create-azure-logic-apps.png)
+
+2.	Click on +Add.
+
+3. Set the following configuration on the Azure Logic App creation form:
+
+   - **Subscription**: Select the subscription you are using for this hands-on lab.
+
+   - **Resource group**: Select the same resource group you created at the beginning of this lab.
+
+   - **Logic App name**: Enter a unique name etldemologicapps as indicated by a green checkmark.
+   
+   - **Select the Location**: Region.
+   
+   - **Location**: Select the same region Southeast Asia.
+
+![Select create Logic Apps Form](media/configure-azure-logic-apps.png)
+
+4. Click on Review+Create.
+
+
+### Task 6: Create Sql Server - Optional
 
 Sql Sever is to store the data copied from source. This task can be skipped if you want to use one of your existing sql servers, in that case please keep the following details ready – servername, databasename, username, password with required level of access. 
 
-If you want to install locally, download it from here https://www.microsoft.com/en-in/sql-server/sql-server-downloads# and run the installer to set up Sql Server
+If you want to install locally, download it from here https://www.microsoft.com/en-in/sql-server/sql-server-downloads# and run the installer to set up Sql Server.
+
+If you want to use Azure SQL DB, following the below instructions.
 
 1.	From Azure portal, type Sql databases in the Search bar at the top and select.
 
