@@ -1,7 +1,7 @@
 ![Microsoft Cloud Workshop](https://github.com/vijiekambaram/BigDataWorkshop/blob/master/media/tiger_analytics_logo.PNG 'Microsoft Cloud Workshop')
 
 <div class="MCWHeader1">
-Big data and visualization
+Big data Pipeline
 </div>
 
 <div class="MCWHeader2">
@@ -9,7 +9,7 @@ Hands-on lab step-by-step
 </div>
 
 <div class="MCWHeader3">
-February 2020
+April 2020
 </div>
 
 
@@ -57,9 +57,9 @@ February 2020
 
 ## Abstract and learning objectives
 
-This hands-on lab is designed to provide exposure to many of Microsoft's transformative line of business applications built using Microsoft big data and advanced analytics.
+This hands-on lab is designed to provide exposure to building pipeline using ADF to copy the data from various data sources and load into Azure resources.
 
-By the end of the lab, you will be able to show an end-to-end solution, leveraging many of these technologies, but not necessarily doing work in every component possible.
+By the end of the lab, you will be able to show an end-to-end solution.
 
 ## Solution architecture
 
@@ -69,12 +69,9 @@ Below is a diagram of the solution architecture you will build in this lab. Plea
 
 ## Requirements
 
-1. Microsoft Azure subscription must be pay-as-you-go or MSDN.
+1. Microsoft Azure subscription with permission to create resources.
 
-   - Trial subscriptions will not work.
-
-
-3. Follow all the steps provided in [Before the Hands-on Lab](Before%20the%20HOL%20-%20Big%20data%20and%20visualization.md).
+2. Follow all the steps provided in [Before the Hands-on Lab](Before%20the%20HOL%20-%20Big%20data%20and%20visualization.md).
 
 ## Exercise 1: Retrieve Azure Storage account information and Subscription Id
 
