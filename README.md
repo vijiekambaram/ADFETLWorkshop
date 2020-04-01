@@ -1,17 +1,18 @@
-# Big data and visualization
+# ADF ELT Pipeline
 
 Use case -
 
-Convert unstructured raw data, into more conformed business schema and answer business questions.
+Create a simple pipeline to read the file from Windows local folder and load into Azure SQL DB after performing following validations
 
-We will be ingesting data from two different sources:
+1. Get the number of files count in Current/Process Folder. If Count <> 1 which means no file or more than one file present, send email notification.
+2. Check File's last modified timestamp, if month >9, 
+    a.	Validate filename of Current/Process File
+    b.	Load the file into Azure SQL DB
+    c.	Take a backup in Azure Blob
+    d.	Delete the File from FTP Folder
 
-- Magento
-- Shopify
 
-Creating a data pipeline to store the raw data, process the data and store the data in SnowFlakes as single fact and dimension. Then we will visualize the data to understand the ordering pattern from these two channels.
-
-February 2020
+April 2020
 
 ## Target audience
 
@@ -22,8 +23,8 @@ February 2020
 
 ### Workshop
 
-At the end of this workshop, you will be better able to build a complete data pipeline and visualize the data.
-In addition, you will learn how to ingest the data, use Azure Data Factory (ADF) for data movement and operationalizing the data pipeline, how to store the data in raw format, learn about Azure Data Lake Gen 2, Process the data using Databricks ,learn about Databricks auto clustering ,summarize data with Azure Databricks and PySpark, store the data into SnowFlake using Azure DataBricks Connector and visualize the data using Power BI.
+At the end of this workshop, you will be better able to build a complete data pipeline using ADF and load into Azure SQL DB/Blob.
+In addition, you will learn how to ingest the data, use Azure Data Factory (ADF) for data movement and operationalizing the data pipeline and how to parameterize the pipeline, how to connect to Sources and load into Azure Sql DB Sink, how to store the back up in Azure Data Lake Gen 2.
 
 
 ### Hands-on lab
@@ -34,13 +35,8 @@ By the end of the lab, you will be able to show an end-to-end solution, leveragi
 
 ## Azure services and related products
 
-- Azure Databricks
 - Azure Data Factory (ADF)
-- Azure Storage
-- Power BI Desktop
-- SnowFlake can use a SQL Store to store structured data.
-
-
-
-
-
+- Azure Data Lake Gen2 Storage
+- Azure Sql DB
+- Azure Storage Explorer
+- Azure Databricks (Walkthrough)
