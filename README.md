@@ -5,11 +5,12 @@ Use case -
 Create a simple pipeline to read the file from Windows local folder and load into Azure SQL DB after performing following validations
 
 1. Get the number of files count in Current/Process Folder. If Count <> 1 which means no file or more than one file present, send email notification.
+
 2. Check File's last modified timestamp, if month >9
-    a.Validate filename of Current/Process File
-    b.Load the file into Azure SQL DB
-    c.Take a backup in Azure Blob
-    d.Delete the File from FTP Folder
+- Validate filename of Current/Process File
+- Load the file into Azure SQL DB
+- Take a backup in Azure Blob
+- Delete the File from FTP Folder
 
 
 April 2020
