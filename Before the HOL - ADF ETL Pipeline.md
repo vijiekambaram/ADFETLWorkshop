@@ -23,7 +23,7 @@ April 2020
     - [Task 1: Provision Azure Data Factory](#task-1-provision-azure-datafactory)
     - [Task 2: Create Azure Storage account](#task-2-create-azure-storage-account)
     - [Task 3: Create storage container](#task-3-create-storage-container)
-    - [Task 4: Provision Azure SqlDB - Optional](#task-4-provision-azure-sql-db)
+    - [Task 4: Provision SqlServer - Optional](#task-4-provision-azure-sql-db)
     - [Task 5: Download Azure Storage Explorer - Optional](#task-5-download-and-install-azure-storage-explorer)
 
 <!-- /TOC -->
@@ -146,9 +146,11 @@ In this task, you will create a storage container in which you will store your M
    ![Screenshot showing the steps to create a new storage container](media/azure-storage-create-container.png)
    
 
-### Task 5: Provision Azure Sql DB - Optional
+### Task 5: Provision Sql Server - Optional
 
 Sql Sever is to store the data copied from source. This task can be skipped if you want to use one of your existing sql servers, in that case please keep the following details ready – servername, databasename, username, password with required level of access. 
+
+If you want to install locally, download it from here https://www.microsoft.com/en-in/sql-server/sql-server-downloads# and run the installer to set up Sql Server
 
 1.	From Azure portal, type Sql databases in the Search bar at the top and select.
 
