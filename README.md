@@ -7,10 +7,10 @@ Create a simple pipeline to read the file from Windows local folder and load int
 1. Get the number of files count in Current/Process Folder. If Count <> 1 which means no file or more than one file present, send email notification.
 
 2. Check File's last modified timestamp, if month >9
-- Validate filename of Current/Process File
-- Load the file into Azure SQL DB
-- Take a backup in Azure Blob
-- Delete the File from FTP Folder
+- Validate filename of Current/Process File. If invalid send email notification.
+- Load the file into Sql Server, send email notification on count of records loaded.
+- Take a backup in Azure Blob.
+- Delete the File from Local Folder.
 
 
 April 2020
@@ -25,7 +25,7 @@ April 2020
 ### Workshop
 
 At the end of this workshop, you will be better able to build a complete data pipeline using ADF and load into Azure SQL DB/Blob.
-In addition, you will learn how to ingest the data, use Azure Data Factory (ADF) for data movement and operationalizing the data pipeline and how to parameterize the pipeline, how to connect to Sources and load into Azure Sql DB Sink, how to store the back up in Azure Data Lake Gen 2.
+In addition, you will learn how to ingest the data, use Azure Data Factory (ADF) for data movement and operationalizing the data pipeline and how to parameterize the pipeline, how to connect to Sources and load into Sql Server, how to store the back up in Azure Data Lake Gen 2, how to send email notification via Logic Apps.
 
 
 ### Hands-on lab
@@ -38,6 +38,7 @@ By the end of the lab, you will be able to show an end-to-end solution, leveragi
 
 - Azure Data Factory (ADF)
 - Azure Data Lake Gen2 Storage
-- Azure Sql DB
+- Sql Server or Azure Sql DB
+- Azure Logic Apps
 - Azure Storage Explorer
 - Azure Databricks (Walkthrough)
