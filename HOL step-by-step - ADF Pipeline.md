@@ -13,59 +13,19 @@ April 2020
 </div>
 
 
-
-
-**Contents**
-
-<!-- TOC -->
-
-- [Big data and visualization hands-on lab step-by-step](#big-data-and-visualization-hands-on-lab-step-by-step)
-  - [Abstract and learning objectives](#abstract-and-learning-objectives)
-  - [Overview](#overview)
-  - [Solution architecture](#solution-architecture)
-  - [Requirements](#requirements)
-  
-  - [Exercise 1: Get Storage Account Details]
-  
-     - [Task 1: Retrieve Azure Storage account information and Subscription Id](#task-1-retrieve-azure-storage-account-information-and-subscription-id)
-      
-  - [Exercise 2: Setup Azure Data Factory](#exercise-2-setup-azure-data-factory)
-    
-    - [Task 1: Configure Azure Data Factory](#task-1-configure-azure-data-factory)
-    
-  - [Exercise 3: Develop a data factory pipeline for data movement](#exercise-3-develop-a-data-factory-pipeline-for-data-movement)
-    - [Task 1: Create copy pipeline using the Copy Data Wizard](#task-1-create-copy-pipeline-using-the-copy-data-wizard)
- 
-  - [Exercise 4: Retrieve lab environment information and create Databricks cluster](#exercise-4-retrieve-lab-environment-information-and-create-databricks-cluster)
-    - [Task 1 : Create an Azure Databricks cluster](#task-1-create-an-azure-databricks-cluster)
-  - [Exercise 2: Load Data and Databricks Notebooks](#exercise-2-load-sample-data-and-databricks-notebooks)
-    
-    - [Task 1: Open Azure Databricks and complete lab notebooks](#task-3-open-azure-databricks-and-complete-lab-notebooks)
-  
-    - [Task 2: Create Azure Databricks Linked Service](#task-1-create-azure-databricks-linked-service)
-    - [Task 3: Trigger workflow](#task-2-trigger-workflow)
-  - [Exercise 7: Visualizing in Power BI Desktop](#exercise-7-visualizing-in-power-bi-desktop)
-    - [Task 1: Obtain the JDBC connection string to your Azure Databricks cluster](#task-1-obtain-the-jdbc-connection-string-to-your-azure-databricks-cluster)
-    - [Task 2: Connect to Azure Databricks using Power BI Desktop](#task-2-connect-to-azure-databricks-using-power-bi-desktop)
-    - [Task 3: Create Power BI report](#task-3-create-power-bi-report)
-   - [After the hands-on lab](#after-the-hands-on-lab)
-    - [Task 1: Delete resource group](#task-1-delete-resource-group)
-
-<!-- /TOC -->
-
-# Big data and visualization hands-on lab step-by-step
+# ADF ELT Pipeline hands-on lab step-by-step
 
 ## Abstract and learning objectives
 
-This hands-on lab is designed to provide exposure to building pipeline using ADF to copy the data from various data sources and load into Azure resources.
+This hands-on lab is designed to provide exposure to building pipeline using ADF, how to use parameters/variables, how to copy the data from various data sources and load into sink, how to send email notification.
 
-By the end of the lab, you will be able to show an end-to-end solution.
+By the end of the lab, you will be able to build an end-to-end pipeline.
 
 ## Solution architecture
 
-Below is a diagram of the solution architecture you will build in this lab. Please study this carefully so you understand the whole of the solution as you are working on the various components.
+Below is a diagram of the logic you will build in this lab. Please study this carefully so you understand the whole of the solution as you are working on the various components.
 
-![This is the high-level overview diagram of the end-to-end solution.](./media/SolutionArch.png 'High-level overview diagram')
+![This is the high-level overview diagram of the end-to-end solution.](./media/logic_flow.png 'High-level overview diagram')
 
 ## Requirements
 
