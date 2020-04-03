@@ -45,37 +45,37 @@ Below is a diagram of the logic you will build in this lab. Please study this ca
 
    a.	Click on Connections at the bottom.
 
-   ![ADF Pencil.](./media/exercise_1_IR_Connections.png 'ADF IR Connection Icon')
+  ![ADF Pencil.](./media/exercise_1_IR_Connections.png 'ADF IR Connection Icon')
    
    b. Click on Integration runtimes and then +New.
 
-   ![ADF Pencil.] (./media/exercise_1_IR_Click.png 'ADF IR Connection Icon') 
+  ![ADF Pencil.] (./media/exercise_1_IR_Click.png 'ADF IR Connection Icon') 
    
    c. Click on Azure, Self-Hosted -> Continue.
 
-   ![ADF Pencil.] (./media/exercise_1_azure_self_hosted.png 'ADF IR Connection Icon')
+  ![ADF Pencil.] (./media/exercise_1_azure_self_hosted.png 'ADF IR Connection Icon')
  
    d. Select Self Hosted and then Continue.
 
-   ![ADF Pencil.] (./media/exercise_1_setup_self_hosted.png 'ADF IR Connection Icon')
+  ![ADF Pencil.] (./media/exercise_1_setup_self_hosted.png 'ADF IR Connection Icon')
    
    e. Enter the details as below i.e Name as SelfHostedForLocal and Description as To Connect to Local and click on Create.
 
-   ![ADF Pencil.] (./media/exercise_1_IR_enter_details.png 'ADF IR Connection Icon')
+  ![ADF Pencil.] (./media/exercise_1_IR_enter_details.png 'ADF IR Connection Icon')
 
    f.	Click on Option 1 for express set up.
 
-   ![ADF Pencil.] (./media/exercise_1_express_setup.png 'ADF IR Connection Icon')
+  ![ADF Pencil.] (./media/exercise_1_express_setup.png 'ADF IR Connection Icon')
    
    g.	Click on the Link in Option1 to download the integration run time. Copy and paste the authentication key in case of Option2.
 
    h.	Download the self-hosted integration runtime on a local Windows machine. Run the installer. It will take few minutes for set up.
 
-   ![ADF Pencil.] (./media/exercise_1_run_express_setup.png 'ADF IR Connection Icon')
+  ![ADF Pencil.] (./media/exercise_1_run_express_setup.png 'ADF IR Connection Icon')
    
    i.	Once it is done, it gets listed under Nodes tab of the IR.
 
-   ![ADF Pencil.] (./media/exercise_1_node_ready.png 'ADF IR Connection Icon')
+  ![ADF Pencil.] (./media/exercise_1_node_ready.png 'ADF IR Connection Icon')
    
 
 ## Exercise 2: Azure Data Factory - Linked Services for Local Folder
