@@ -251,6 +251,181 @@ Since this a common connection to the sql server, we can dynamically pass the sc
    
 8. Click on Validate All and Publish All at the top to validate and save the changes.
    
+   
+## Exercise 8: Azure Data Factory - Linked Services for Azure Blob for backup
+
+Create Linked Service to connect to Azure Blob.
+
+1.	Click on Connections -> Linked Services -> New.
+
+2.	From Azure,  Click on Azure Blob Storage.
+
+   ![ADF Pencil.](./media/exercise_8_blob_Storage.png 'ADF IR Connection Icon') 
+   
+3.	Set up the configuration details.
+
+   a. Enter the name as bctlbackup.
+   
+   b. Account Selection method as From Azure Subscription.
+   
+   c. Azure Subscription – Select the one used for this lab.
+   
+   d. Storage Account name as the one created during before HOL.
+   
+   e. Click on Test Connection and then Create.
+
+   ![ADF Pencil.](./media/exercise_8_enter_details.png 'ADF IR Connection Icon')
+   
+## Exercise 9: Azure Data Factory - Dataset for Azure Blob
+
+1.	Click on Datasets (…) and select New Dataset.
+
+2.	From Azure,  Click on Azure Blob Storage.
+
+3.	Choose the Format as Delimited Text CSV.
+
+4.	Set up the configuration.
+
+   a.	Enter the name as bctlbackupdataset.
+   b.	Select the Linked Service as bctlbackup.
+   c.	File path: Click on Browse and select the container created during before HOL.
+   d.	Check First Row as Header.
+   e. Import Schema: From connection/store.
+   f.	Click OK.
+
+   ![ADF Pencil.](./media/exercise_9_enter_details.png 'ADF IR Connection Icon')
+
+## Exercise 10: Azure Data Factory - Adding Parameters to bctlbackupdataset 
+
+Since this is a common connection to Azure Blob, we can dynamically pass the container name.
+
+1.	Click on Parameters and add two parameters.
+
+   ![ADF Pencil.](./media/exercise_10_add_parameters.png 'ADF IR Connection Icon') 
+   
+2.	Click on Connections tab, click on Add Dynamic Content under Directory.
+
+   ![ADF Pencil.](./media/exercise_10_add_dynamic_content.png 'ADF IR Connection Icon') 
+   
+3.	Select the directoryname parameter created and Click Finish.
+
+   ![ADF Pencil.](./media/exercise_10_add_foldername_parameters.png 'ADF IR Connection Icon') 
+   
+4.	Select the Column Delimiter as tab.
+
+   ![ADF Pencil.](./media/exercise_10_column_delimiter.png 'ADF IR Connection Icon') 
+   
+5. Click on Validate All and Publish All at the top to validate and save the changes	e.	Click on Validate All and Publish All at the top to validate and save the changes.
+
+## Exercise 11: Azure Data Factory - Create Pipeline 
+
+1.	Connect to Current Process Folder.
+2.	Get Current files count, if not <> 1 send email notification.
+3.	If Current Process file is one, 
+   a.	Load the Current Process file into Sql Server, send email on number of records loaded.
+   b.	Take a backup in Azure Blob.
+   c.	Delete the File from Local Folder.
+4.	Check If day of month < 9.
+   a.	Connect to Previous Process Folder.
+   b.	Get Previous files count, if not <> 1 send email notification.
+   c.	If Previous Process file count is one, 
+   d.	Load both Current Process file & Previous Process File into Sql Server, send email on number of records loaded.
+   e.	Take backups in Azure Blob.
+   f.	Delete the Files from Local Folder.
+
+## Exercise 12: Azure Data Factory - Create Generic Pipeline 
+
+Create a Generic Pipeline to perform on the following which can be called for both Current and Previous files.
+
+1. Load the Process file into Sql Server
+2. Send email on number of records loaded.
+3.	Take a backup in Azure Blob.
+4.	Delete the File from Local Folder.
+
+We will start with creating a new pipeline.
+
+1.	Click on Pipeline(…) and select New Pipeline.
+
+   ![ADF Pencil.](./media/exercise_12_new_pipeline.png 'ADF IR Connection Icon')  
+   
+2.	Enter the name as generic_copy_pipeline.
+
+   ![ADF Pencil.](./media/exercise_12_name_pipeline.png 'ADF IR Connection Icon')  
+   
+3.	Click on Parameters to add parameters foldername, filename, schemaname, tablename, precopyscript which will be referenced in Datasets created above.
+
+   ![ADF Pencil.](./media/exercise_12_parameter_pipeline.png 'ADF IR Connection Icon')  
+   
+## Task 1 : Add Copy Activity to copy into Sql Server
+
+1. From Activities pane, expand Move &Transform to drag and drop the Copy Activity, name the activity as CopyCurrentProcess.
+
+   ![ADF Pencil.](./media/exercise_12_task1_add_copy_activity.png 'ADF IR Connection Icon')  
+
+2. Click on Source tab and select SourceProcessFile as Dataset and provide the value for foldername parameter as @pipeline().parameters.foldername and filename as single blank.
+
+   ![ADF Pencil.](./media/exercise_12_task1_add_source_parameters.png 'ADF IR Connection Icon')  
+
+3. Click on Sink tab and select OutputSqltable as Dataset and provide the value for tablename as etl_demo_raw and schema name as dbo. Check Auto Create table. Give Pre-Copy Script as below to delete the existing records and load fresh records in case of first activity call.
+
+   ![ADF Pencil.](./media/exercise_12_task1_add_sink_parameters.png 'ADF IR Connection Icon') 
+   
+4. Click Validate All and Publish All to validate and save the changes.
+   
+## Task 2 : Add Copy Activity to take backup in Blob
+
+1. Add one more Copy activity, name it as CopyBackuptoBlob and connect Success Output of CopyCurrentProcess to CopyBackuptoBlob activity.
+
+   ![ADF Pencil.](./media/exercise_12_task2_add_copy_activity.png 'ADF IR Connection Icon')  
+   
+2. Click on Source and select SourceProcessFile and pass the value for parameter as @pipeline().parameters.foldername and filename as one blank.
+
+   ![ADF Pencil.](./media/exercise_12_task2_add_source_parameters.png 'ADF IR Connection Icon')  
+   
+3. Click on Sink and select bctlbackupdataset. Enter the parameter value as @pipeline().parameters.foldername.
+
+   ![ADF Pencil.](./media/exercise_12_task2_add_sink_parameters.png 'ADF IR Connection Icon')  
+   
+4. Click on Validate All and Publish All.
+
+## Task 3 : Add Delete Activity to Delete File from Local
+
+1. Add Delete Activity next to CopyBackuptoBlob and name the activity as DeleteFilefromLocal.
+
+   ![ADF Pencil.](./media/exercise_12_task3_delete_activity.png 'ADF IR Connection Icon')  
+   
+2. Click on Source and select SourceProcessFolder and add dynamic content to foldername as @pipeline().parameters.foldername, add dynamic content to filename as @pipeline().parameters.filename.
+
+   ![ADF Pencil.](./media/exercise_12_task3_add_source_parameters.png 'ADF IR Connection Icon')  
+   
+3. Click on Logging Settings and disable logging for this demo.
+
+   ![ADF Pencil.](./media/exercise_12_task3_add_logging_parameters.png 'ADF IR Connection Icon')  
+   
+4. Click on Validate All and Publish All.
+
+
+## Task 4 : Add Web Activity to call Logic Apps Email
+
+1. From Activity expand General, Add Web activity next to CopyCurrentProcess to call the Logic App to send email notification on number of records loaded, name the activity as EmailRecordsLoaded. Connect Success Output of CopyCurrentProcess to EmailRecordsLoaded.
+
+   ![ADF Pencil.](./media/exercise_12_task4_add_web_activity.png 'ADF IR Connection Icon')  
+   
+2. Click on Settings.
+
+   a. Copy Paste the Logic App http URL.
+   
+   b. Select API method as POST.
+   
+   c. Add Headers with name as Content-Type  and value as application/json. 
+
+   d. Add Dynamic Content to Body
+{"DataFactoryName":"@{pipeline().DataFactory}","EmailTo":"replacewithyourid","Message":"@{pipeline().parameters.foldername}  File Copied Successfully. \n No of records copied - @{string(activity('CopyCurrentProcess').output.rowsCopied)}","PipelineName":"@{pipeline().Pipeline}","Subject":"Data Copy from FTP to SqlServer - Success"}.
+
+   ![ADF Pencil.](./media/exercise_12_task4_add_settings_parameters.png 'ADF IR Connection Icon')  
+   
+3. Click on Validate All and Publish All.
+
 ## After the hands-on lab
 
 Duration: 10 minutes
