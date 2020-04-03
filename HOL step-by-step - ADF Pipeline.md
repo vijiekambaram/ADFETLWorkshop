@@ -47,8 +47,9 @@ Below is a diagram of the logic you will build in this lab. Please study this ca
 
   ![ADF Pencil.](./media/exercise_1_IR_Connections.png 'ADF IR Connection Icon')
    
-   b. Click on Integration runtimes and then +New.
+   b. Click on Integration runtimes and then New.
 
+  ![ADF Pencil.](./media/exercise_1_IR_Connections.png 'ADF IR Connection Icon')
   ![ADF Pencil.] (./media/exercise_1_IR_Click.png 'ADF IR Connection Icon') 
    
    c. Click on Azure, Self-Hosted -> Continue.
