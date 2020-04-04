@@ -570,12 +570,109 @@ This is to load the current file data into Sql Server, take backup in Blob and d
    
    tablename: etl_demo_raw.
    
-   precopyscript: TRUNCATE TABLE.
-   
+   precopyscript: TRUNCATE TABLE 
    etldemodb.dbo.etl_demo_raw – this is to delete the records and load it with new data.
    
    ![ADF Pencil.](./media/exercise_13_task5_execute_pipeline_parameter.png 'ADF IR Connection Icon')
    
+## Task 6 : Add If Activity
+
+This is to check if day of month > 9 or not. If <=9, load previous file data also.
+
+Click on etlpipeline to go back to Pipeline to add one more If Condition to check day of month value.
+
+1. From Activities pane, expand Iteration & Conditionals, drag and drop If Condition next to ExecuteCurrentFileCopyPipeline activity, Name the If activity as LastModifiedMonthCheck and connect ExecuteCurrentFileCopyPipeline activity to LastModifiedMonthCheck activity.
+
+   ![ADF Pencil.](./media/exercise_13_task6_add_if_activity.png 'ADF IR Connection Icon')
+   
+2. Click on Activities tab and then add dynamic content to add the condition expression to check if day of month > 9 or not for this demo.
+
+   ![ADF Pencil.](./media/exercise_13_task6_add_dynamic_content.png 'ADF IR Connection Icon')
+   
+3. Click Validate All and Publish All to validate and save the changes.
+
+## Task 7 : Add Activity to True condition
+      
+Add logic to process Previous file also if day of month is <= 9.
+
+1. Click to add True activities.
+
+   ![ADF Pencil.](./media/exercise_13_task6_add_true_activity.png 'ADF IR Connection Icon')
+
+2. Add Get Metadata activity to extract Previous File metadata like file count. Name the activity as GetPreviousProcessFileMetadata.
+
+   ![ADF Pencil.](./media/exercise_13_task6_add_getmetadata_activity.png 'ADF IR Connection Icon')
+   
+3. Click on Dataset and select SourceProcessFolder. Pass foldername as PREVIOUS\Process and filename as single blank. Add Field List and select Child Items.
+
+   ![ADF Pencil.](./media/exercise_13_task6_add_field_list.png 'ADF IR Connection Icon')
+   
+4. Add SetVariable activity next to Get Metadata activity to get the file count, name it as SetPreviousFileCount.
+
+   ![ADF Pencil.](./media/exercise_13_task6_add_setvariable_activity.png 'ADF IR Connection Icon')
+   
+5. Click on Variables and add a variable as previousfilecount and value as @string(length(activity('GetPreviousProcessFileMetadata').output.childItems)).
+
+   ![ADF Pencil.](./media/exercise_13_task6_add_variable.png 'ADF IR Connection Icon')
+   
+6. Click on Validate All and Publish All
+
+## Task 8 : Add If Activity to check previous file count
+
+Go back to etlpipeline and add If activity next to LastModifiedMonthCheck and name it as NumberOfPreviousFilesCheck
+
+![ADF Pencil.](./media/exercise_13_task7_add_if_activity.png 'ADF IR Connection Icon')
+
+1. Click on Activities and add the condition to check the file count.
+
+   ![ADF Pencil.](./media/exercise_13_task7_add_true_activity.png 'ADF IR Connection Icon')
+   
+2. Click on True activity and add Execute Pipeline activity to execute copy pipeline to load previous file into Sql server, take back up and delete the file from local folder.
+
+   ![ADF Pencil.](./media/exercise_13_task7_add_execute_pipeline.png 'ADF IR Connection Icon')
+      
+3. Go to Settings tab and select the Invoked Pipeline as generic_copy_pipeline which we created in above exercise. Click on Advanced, Click on Auto-fill parameters to pass values for parameters.
+
+   ![ADF Pencil.](./media/exercise_13_task7_add_settings.png 'ADF IR Connection Icon')
+         
+4. Enter the value of Parameters as follows.
+
+   foldername: PREVIOUS\Process.
+   
+   filename: @replace(split(split(string(first(activity('GetPreviousProcessFileMetadata').output.childItems)),':')[1],',')[0],'"','').
+   
+   schemaname: dbo.
+   
+   tablename: etl_demo_raw.
+   
+   precopyscript: single blank.
+   
+   ![ADF Pencil.](./media/exercise_13_task7_add_parameters.png 'ADF IR Connection Icon')
+
+
+## Task 9 : Add If Activity to check previous file count
+
+Go back to NumberOfPreviousFilesCheck If activity to add on False Activity 
+
+![ADF Pencil.](./media/exercise_13_task9_add_false_activity.png 'ADF IR Connection Icon')
+
+1. Add Web activity and name it as EmailNumberofPreviousFiles.
+
+   ![ADF Pencil.](./media/exercise_13_task7_add_web_activity.png 'ADF IR Connection Icon')
+   
+2. Click on Settings.
+
+   Copy Paste the Logic App http URL.
+   
+   Select API method as POST.
+   
+   Add Headers with name as Content-Type  and value as application/json.
+   
+   Add Dynamic Content to Body
+   {"DataFactoryName":"@{pipeline().DataFactory}","EmailTo":"<replacewithyourid>","Message":"Previous Process File Read Failure. No of Files present - @{variables('previousfilecount')}","PipelineName":"@{pipeline().Pipeline}","Subject":"Data Copy from FTP to SqlServer - Failure"}.
+   
+   ![ADF Pencil.](./media/exercise_13_task9_add_web_parameters.png 'ADF IR Connection Icon')
+
 ## After the hands-on lab
 
 Duration: 10 minutes
