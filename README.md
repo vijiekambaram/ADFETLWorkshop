@@ -6,9 +6,8 @@ Create a simple pipeline to read the file from Windows local folder and load int
 
 1. Get the number of files count in Current/Process Folder. If Count <> 1 which means no file or more than one file present, send email notification.
 
-2. Check File's last modified timestamp, if month >9
-- Validate filename of Current/Process File. If invalid send email notification.
-- Load the file into Sql Server, send email notification on count of records loaded.
+2. Check File's last modified timestamp, 
+- if month >9 Load the Current Process file into Sql Server else load both Current and Previous Process file, send email notification on count of records loaded
 - Take a backup in Azure Blob.
 - Delete the File from Local Folder.
 
