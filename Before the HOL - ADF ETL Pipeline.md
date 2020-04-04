@@ -25,8 +25,9 @@ April 2020
     - [Task 3: Create Azure Storage account](#task-3-create-azure-storage-account)
     - [Task 4: Create storage container](#task-4-create-storage-container)
     - [Task 5: Create Logic Apps](#task-5-create-logic-apps)
-    - [Task 6: Provision SqlServer - Optional](#task-6-provision-azure-sql-db)
-    - [Task 7: Download Azure Storage Explorer - Optional](#task-7-download-and-install-azure-storage-explorer)
+    - [Task 6: Configure Email notification in Logic Apps](#task-6-configure-logic-apps)
+    - [Task 7: Provision SqlServer - Optional](#task-7-provision-azure-sql-db)
+    - [Task 8: Download Azure Storage Explorer - Optional](#task-8-download-and-install-azure-storage-explorer)
 
 <!-- /TOC -->
 
@@ -174,8 +175,75 @@ Azure Logic Apps is a cloud service that helps you schedule, automate, and orche
 
 4. Click on Review+Create.
 
+### Task 6: Configure Email in Logic Apps
 
-### Task 6: Create Sql Server - Optional
+1. From Azure Logic Apps, Click on Logic App Designer.
+
+    ![Select Configure Logic Apps](media/email_configure_logic_apps.png)
+    
+2. Scroll down and select When http request is received.
+
+    ![Select Configure Logic Apps](media/email_http_create_step.png)
+    
+3. Paste the following JSON in Request Body. Click Save.
+
+    {
+    "properties": {
+        "DataFactoryName": {
+            "type": "string"
+        },
+        "EmailTo": {
+            "type": "string"
+        },
+        "Message": {
+            "type": "string"
+        },
+        "PipelineName": {
+            "type": "string"
+        },
+        "Subject": {
+            "type": "string"
+        }
+    },
+    "type": "object"
+    }
+
+    ![Select Configure Logic Apps](media/email_http_configure.png)
+
+4. Note down the URL this is needed during email notification step in Azure Data Factory.
+
+    ![Select Configure Logic Apps](media/email_http_url.png)
+
+5. Scroll down and Click + New step.
+
+    ![Select Configure Logic Apps](media/email_add_new_step.png)
+
+6. Type mail in the Search box and Select your choice. Here we will choose Gmail for demo purpose.
+
+    ![Select Configure Logic Apps](media/email_search_mail.png)
+    
+7. Select Send Email.
+
+    ![Select Configure Logic Apps](media/email_send_email.png)    
+    
+8. Click on Sign In and Select the Google Account you want to use.
+
+    ![Select Configure Logic Apps](media/email_signin_account.png)    
+    
+9. Once Configured, Click on To and add dynamic content EmailTo.
+
+    ![Select Configure Logic Apps](media/email_send_email_to.png)    
+
+10. Click on Add new parameter and select Subject and Body.
+
+    ![Select Configure Logic Apps](media/email_select_subject_body.png)   
+
+11. Add Dynamic Content to Subject and Body. Click on Save.
+
+    ![Select Configure Logic Apps](media/email_dynamic_subject_body.png)  
+    
+
+### Task 7: Create Sql Server - Optional
 
 Sql Sever is to store the data copied from source. This task can be skipped if you want to use one of your existing sql servers, in that case please keep the following details ready – servername, databasename, username, password with required level of access. 
 
@@ -202,7 +270,7 @@ If you want to use Azure SQL DB, following the below instructions.
     ![Fill the Azure Sql DB](media/create-azure-sql-db.png)
 
 
-### Task 6: Download Azure Storage Explorer - Optional
+### Task 8: Download Azure Storage Explorer - Optional
 
 Azure Storage Explorer is required to upload/ view data in Data Lake Gen 2.
 
