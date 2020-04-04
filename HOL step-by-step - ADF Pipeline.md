@@ -117,7 +117,7 @@ Dataset is use to define the folder name, file type etc.
 
    ![ADF Pencil.](./media/exercise_3_ds_select_file_format.png 'ADF IR Connection Icon')
    
-4. Enter the details as follows
+4. Enter the details as follows.
 
    a. Name as SourceProcessFolder.
    
@@ -289,10 +289,15 @@ Create Linked Service to connect to Azure Blob.
 4.	Set up the configuration.
 
    a.	Enter the name as bctlbackupdataset.
+   
    b.	Select the Linked Service as bctlbackup.
+   
    c.	File path: Click on Browse and select the container created during before HOL.
+   
    d.	Check First Row as Header.
+   
    e. Import Schema: From connection/store.
+   
    f.	Click OK.
 
    ![ADF Pencil.](./media/exercise_9_enter_details.png 'ADF IR Connection Icon')
