@@ -672,6 +672,31 @@ Go back to NumberOfPreviousFilesCheck If activity to add on False Activity
    {"DataFactoryName":"@{pipeline().DataFactory}","EmailTo":"<replacewithyourid>","Message":"Previous Process File Read Failure. No of Files present - @{variables('previousfilecount')}","PipelineName":"@{pipeline().Pipeline}","Subject":"Data Copy from FTP to SqlServer - Failure"}.
    
    ![ADF Pencil.](./media/exercise_13_task9_add_web_parameters.png 'ADF IR Connection Icon')
+   
+## Exercise 14 : Running and Validating the Pipeline.
+
+1. Go to etlpipeline and Add trigger -> Trigger now to run once.
+
+   ![ADF Pencil.](./media/exercise_14_pipeline_trigger_now.png 'ADF IR Connection Icon')
+   
+2. Go to Monitor tab and view the status and logs.
+
+   ![ADF Pencil.](./media/exercise_14_pipeline_monitor.png 'ADF IR Connection Icon')
+   
+   ![ADF Pencil.](./media/exercise_14_pipeline_runs.png 'ADF IR Connection Icon')
+   
+3. Login to Sql Server. Current Process File data is loaded.
+
+   ![ADF Pencil.](./media/exercise_14_sqlserver_data.png 'ADF IR Connection Icon')
+   
+4. Backup is taken in Blob.
+  
+   ![ADF Pencil.](./media/exercise_14_blob_backup_data.png 'ADF IR Connection Icon')
+   
+5. Email received.
+   
+   ![ADF Pencil.](./media/exercise_14_email_received.png 'ADF IR Connection Icon')
+
 
 ## After the hands-on lab
 
