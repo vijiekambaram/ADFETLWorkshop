@@ -37,6 +37,8 @@ Below is a diagram of the logic you will build in this lab. Please study this ca
 
 1. Go to Azure Data Factory resource created in Before HOL and Click on Author & Monitor.
 
+   ![ADF Pencil.](./media/exercise_1_adf_author_monitor.png 'ADF Pencil Icon')
+
 2. From ADF home page, click on Pencil icon.
 
    ![ADF Pencil.](./media/exercise_1_adf_pencil.png 'ADF Pencil Icon')
