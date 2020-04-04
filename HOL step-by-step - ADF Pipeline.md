@@ -426,6 +426,156 @@ We will start with creating a new pipeline.
    
 3. Click on Validate All and Publish All.
 
+## Exercise 13: Azure Data Factory - Create ETL Pipeline 
+
+Create Pipeline to perform validations like file count, day of month and load the data into Sql Server.
+
+Overview of the Pipeline we are going to build.
+
+   ![ADF Pencil.](./media/exercise_13_pipeline_overview.png 'ADF IR Connection Icon') 
+   
+1. Click on Pipeline(…) and select New Pipeline.
+
+   ![ADF Pencil.](./media/exercise_13_create_pipeline.png 'ADF IR Connection Icon') 
+
+2. Enter the name as etlpipeline.
+
+   ![ADF Pencil.](./media/exercise_13_name_pipeline.png 'ADF IR Connection Icon')
+  
+3. Click on Variables tab and add two variables.
+
+   ![ADF Pencil.](./media/exercise_13_add_pipeline_variables.png 'ADF IR Connection Icon')
+   
+4. Click on Variables tab and add two variables.
+
+   ![ADF Pencil.](./media/exercise_13_add_pipeline_variables.png 'ADF IR Connection Icon')
+   
+## Task 1 : Add Get Metadata Activity 
+
+This will connect to the source and retrieve the metadata such as filename, number of files present in case of folder, lastModified etc.
+
+1. On the activities Pane, expand General, drag and drop Get Metadata activity to the pipeline pane. Enter the name as GetCurrentProcessFileMetadata.
+
+   ![ADF Pencil.](./media/exercise_13_task1_add_getmetadata.png 'ADF IR Connection Icon')
+
+2. Click on Dataset and select SourceProcessFile dataset.
+
+   ![ADF Pencil.](./media/exercise_13_task1_add_getmetadata_source_folder.png 'ADF IR Connection Icon')
+
+3. Provide the value for the parameter i.e foldername as CURRENT\Process and filename as single blank as we are going to check the Current File first.
+
+   ![ADF Pencil.](./media/exercise_13_task1_source_folder_add_parameters.png 'ADF IR Connection Icon')
+   
+4. Scroll Down and select the metadata needed. Here we will select Child Items to get all files under this directory and Last Modified of the directory. Click on +New next to Field list and select Child Items and Last Modified from the drop down.
+
+   ![ADF Pencil.](./media/exercise_13_task1_select_getmetadata.png 'ADF IR Connection Icon')
+   
+5. Click on Validate All and Publish All to validate and save the changes.
+
+6. To understand how Get Metadata Activity works, Click on Debug at the top and once Status is SUCCEEDED look at the Get Metadata output.
+
+   ![ADF Pencil.](./media/exercise_13_task1_getmetadata_debug.png 'ADF IR Connection Icon')
+   
+   ![ADF Pencil.](./media/exercise_13_task1_getmetadata_output.png 'ADF IR Connection Icon')
+   
+## Task 2 : Add If Activity 
+
+Add If activity to check if the number of Current Process file present is 1 or not.
+
+1. From Activities pane, expand Iteration & Conditionals, drag and drop If Condition next to Get Metadata activity and name the activity as NumberOfFilesCheck.
+
+   ![ADF Pencil.](./media/exercise_13_task2_add_ifactivity.png 'ADF IR Connection Icon')
+   
+2. Connect GetCurrentProcessFileMetadata to If Condition.
+
+   ![ADF Pencil.](./media/exercise_13_task2_connect_ifactivity.png 'ADF IR Connection Icon')
+   
+3. Click on If Activity and go to Activities tab. Click on Add Dynamic Content to add the condition.
+
+   ![ADF Pencil.](./media/exercise_13_task2_expr_add_dynamic_content.png 'ADF IR Connection Icon')
+   
+4. Add the expression as @equals(length(activity('GetCurrentProcessFileMetadata').output.childItems),1) to check if number of files is = 1. Click Finish. 
+
+   ![ADF Pencil.](./media/exercise_13_task2_expression_value.png 'ADF IR Connection Icon')
+   
+5. Click on Validate All and Publish All to save the changes.
+
+## Task 3 : Add Web Activity to False condition
+
+If above expression is False, send email notification. Click to add activity in case of False condition.
+
+   ![ADF Pencil.](./media/exercise_13_task2_add_false_activity.png 'ADF IR Connection Icon')
+
+  
+1. From Activity expand General, Add Web activity to call the Logic App to send email notification on number of files present, name the activity as EmailNumberofFiles. 
+
+   ![ADF Pencil.](./media/exercise_13_task2_add_web_activity.png 'ADF IR Connection Icon')
+   
+2. Click on Settings and enter following details
+
+   Copy Paste the Logic App http URL.
+   
+   Select API method as POST.
+   
+   Add Headers with name as Content-Type  and value as application/json.
+   
+   Add Dynamic Content to Body
+   {"DataFactoryName":"@{pipeline().DataFactory}","EmailTo":"<replacewithyourid>","Message":"Current Process File Read Failure. No of Files present - @{string(length(activity('GetCurrentProcessFileMetadata').output.childItems))}","PipelineName":"@{pipeline().Pipeline}","Subject":"Data Copy from FTP to SqlServer - Failure"}
+
+   ![ADF Pencil.](./media/exercise_13_task2_add_web_activity.png 'ADF IR Connection Icon')
+   
+3. Click on Validate All and Publish All.
+
+## Task 4 : Add Activity to True condition
+
+Click on etlpipeline to go back to Pipeline to add activities to True condition. 
+
+1. Click on True Activities. 
+
+   ![ADF Pencil.](./media/exercise_13_task4_add_true_activity.png 'ADF IR Connection Icon')
+   
+2. From General on Activities pane, drag and drop Set Variable Activity to True Activity of NumberOfFilesCheck to set lastmodified month variable. Enter the activity name as SetLastModifiedMonth. 
+
+   ![ADF Pencil.](./media/exercise_13_task4_add_set_activity.png 'ADF IR Connection Icon')
+   
+3. Click on Variables tab and select the lastmodifiedmonth variable. Click to Add Dynamic Content. 
+
+   ![ADF Pencil.](./media/exercise_13_task4_add_variable.png 'ADF IR Connection Icon')
+   
+4. Add Dynamic Content as @substring(activity('GetCurrentProcessFileMetadata').output.lastModified,8,2) to extract the day of the month. Click Finish. 
+
+   ![ADF Pencil.](./media/exercise_13_task4_add_variable_dynamic_content.png 'ADF IR Connection Icon')
+   
+5. Click Validate All and Publish All to validate and save the changes.
+
+
+## Task 5 : Add Execute Pipeline Activity
+
+This is to load the current file data into Sql Server, take backup in Blob and delete from local folder. 
+
+1. From Activities pane, expand General and drag and drop Execute Pipeline activity next to NumberOfFilesCheck activity and name it as ExecuteCurrentFileCopyPipeline. 
+
+   ![ADF Pencil.](./media/exercise_13_task5_add_execute_pipeline.png 'ADF IR Connection Icon')
+    
+2. Go to Settings tab and select the Invoked Pipeline as generic_copy_pipeline which we created in above exercise. Click on Advanced, Click on Auto-fill parameters to pass values for parameters. 
+
+   ![ADF Pencil.](./media/exercise_13_task5_execute_pipeline_settings.png 'ADF IR Connection Icon')
+   
+3. Enter the value of Parameters as follows. 
+   foldername: CURRENT\Process.
+   
+   filename: @replace(split(split(string(first(activity('GetCurrentProcessFileMetadata').output.childItems)),':')[1],',')[0],'"','').
+   
+   schemaname: dbo.
+   
+   tablename: etl_demo_raw.
+   
+   precopyscript: TRUNCATE TABLE.
+   
+   etldemodb.dbo.etl_demo_raw – this is to delete the records and load it with new data.
+   
+   ![ADF Pencil.](./media/exercise_13_task5_execute_pipeline_parameter.png 'ADF IR Connection Icon')
+   
 ## After the hands-on lab
 
 Duration: 10 minutes
