@@ -2,14 +2,14 @@
 
 Use case -
 
-Create a simple pipeline to read the file from Windows local folder and load into Azure SQL DB after performing following validations
+Create a simple pipeline to read the file from Windows local folder and load into Sql Server after performing following validations
 
 1. Get the number of files count in Current/Process Folder. If Count <> 1 which means no file or more than one file present, send email notification.
 
-2. Check File's last modified timestamp, 
-- if month >9 Load the Current Process file into Sql Server else load both Current and Previous Process file, send email notification on count of records loaded
-- Take a backup in Azure Blob.
-- Delete the File from Local Folder.
+2. If one Current Process File is present, Check File's last modified timestamp, 
+  - if day of month >9 Load the Current Process file into Sql Server else load both Current and Previous Process file, send email     notification on count of records loaded
+  - Take a backup in Azure Blob.
+  - Delete the File from Local Folder.
 
 
 April 2020
@@ -40,4 +40,3 @@ By the end of the lab, you will be able to show an end-to-end solution, leveragi
 - Sql Server or Azure Sql DB
 - Azure Logic Apps
 - Azure Storage Explorer
-- Azure Databricks (Walkthrough)
